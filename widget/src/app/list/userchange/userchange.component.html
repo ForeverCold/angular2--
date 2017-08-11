@@ -1,0 +1,51 @@
+<div>
+  <!-- Horizontal Form -->
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Horizontal Form</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form class="form-horizontal" [formGroup]="formModel">
+      <div class="box-body">
+        <div class="form-group">
+          <label for="inputName3" class="col-sm-4 control-label">用户名</label>
+
+          <div class="col-sm-4">
+            <input type="text" formControlName="name" class="form-control" id="inputName3" placeholder="请输入用户名">
+          </div>
+          <input type="button" class="btn btn-primary" (click)="query()" value="查询">
+        </div>
+        <div class="form-group">
+          <div class="col-sm-5 col-sm-offset-4">
+
+            <div class="checkbox" *ngFor="let item of permissionsList,let i = index">
+              <label formArrayName="main">
+                <input type="checkbox" [ngModel]="item.checked" [formControlName]="i" (click)="selectCheckbox($event, item)">
+                {{item.text}}
+              </label>
+
+               <div *ngIf='item.sublist'>
+                <div class="checkbox-inline" *ngFor="let sitem of item.sublist, let i = index">
+                  <label formArrayName="vice">
+                    <input type="checkbox" [ngModel]="sitem.checked" (click)="reverseCheckbox($event, item, sitem)" [formControlName]='i + item.permissionsNumber'>
+                    {{sitem.text + i }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer">
+        <div class="col-sm-4 col-sm-offset-4">
+          <button type="button" (click)="cancel()" class="btn btn-default">取消</button>
+          <button type="submit" (click)="confirm()" class="btn btn-info pull-right">确认</button>
+        </div>
+      </div>
+      <!-- /.box-footer -->
+    </form>
+  </div>
+</div>
